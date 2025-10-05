@@ -1,5 +1,5 @@
 
-# How To RUn
+# How To Run
 
 download dependencies
 
