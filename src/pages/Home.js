@@ -1,47 +1,36 @@
-// src/pages/Home.js
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
 
 function Home() {
-  const navigate = useNavigate();
+  const [doctorSurname, setDoctorSurname] = useState("");
+
+  useEffect(() => {
+    const fullName = localStorage.getItem("doctorFullName");
+    if (fullName) {
+      const nameParts = fullName.trim().split(" ");
+      const lastName = nameParts[nameParts.length - 1];
+      setDoctorSurname(lastName);
+    }
+  }, []);
 
   return (
-    <div style={{ padding: "2rem", backgroundColor: "#f5f7fa", minHeight: "100vh" }}>
-      <header style={{ marginBottom: "2rem" }}>
-        <h1 style={{ color: "#007bff" }}>NMS Dashboard</h1>
-        <p>Welcome back, Doctor. Select a section below to continue.</p>
-      </header>
-
-      <div style={{ display: "flex", gap: "2rem" }}>
-        <div
-          onClick={() => navigate("/patients")}
-          style={{
-            flex: 1,
-            background: "#fff",
-            padding: "1.5rem",
-            borderRadius: "1rem",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-            cursor: "pointer",
-          }}
-        >
-          <h2>👩‍⚕️ Patients</h2>
-          <p>View and manage dementia risk data for patients.</p>
-        </div>
-
-        <div
-          onClick={() => navigate("/reports")}
-          style={{
-            flex: 1,
-            background: "#fff",
-            padding: "1.5rem",
-            borderRadius: "1rem",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-            cursor: "pointer",
-          }}
-        >
-          <h2>📊 Reports</h2>
-          <p>Generate and download patient risk reports.</p>
-        </div>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "linear-gradient(to bottom right, #e6f0ff, #ffffff)",
+        fontFamily: "'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+      }}
+    >
+      <Navbar />
+      <div
+        style={{
+          padding: "4rem",
+          textAlign: "center",
+          color: "#1e4d92",
+        }}
+      >
+        <h1>Hello, Dr. {doctorSurname || "User"}</h1>
+        <p>Welcome to the NeuroMind System Web Portal.</p>
       </div>
     </div>
   );

@@ -1,22 +1,20 @@
-
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
   const navigate = useNavigate();
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!email || !password) {
-      setError("Please enter both email and password.");
+    if (!fullName || !email || !password) {
+      setError("Please enter your full name, email, and password.");
       return;
     }
-
-    
+    localStorage.setItem("doctorFullName", fullName);
     navigate("/home");
   };
 
@@ -44,6 +42,21 @@ function Login() {
         </h2>
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: "1rem" }}>
+            <label>Full Name:</label>
+            <input
+              type="text"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "0.5rem",
+                marginTop: "0.3rem",
+                borderRadius: "0.3rem",
+                border: "1px solid #ccc",
+              }}
+            />
+          </div>
+          <div style={{ marginBottom: "1rem" }}>
             <label>Email:</label>
             <input
               type="email"
@@ -59,7 +72,6 @@ function Login() {
               }}
             />
           </div>
-
           <div style={{ marginBottom: "1rem" }}>
             <label>Password:</label>
             <input
@@ -76,11 +88,9 @@ function Login() {
               }}
             />
           </div>
-
           {error && (
             <p style={{ color: "red", fontSize: "0.9rem" }}>{error}</p>
           )}
-
           <button
             type="submit"
             style={{
@@ -96,8 +106,6 @@ function Login() {
             Login
           </button>
         </form>
-
-        
         <div style={{ textAlign: "center", marginTop: "1rem" }}>
           <Link
             to="/forgot-password"
@@ -112,5 +120,7 @@ function Login() {
 }
 
 export default Login;
+
+
 
 

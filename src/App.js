@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Patients from "./pages/Patients";
@@ -10,7 +9,6 @@ import ForgotPassword from "./pages/ForgotPassword";
 function App() {
   return (
     <Router>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
@@ -23,4 +21,3 @@ function App() {
 }
 
 export default App;
-
