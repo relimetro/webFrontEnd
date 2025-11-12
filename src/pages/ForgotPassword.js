@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -11,15 +10,12 @@ function ForgotPassword() {
     e.preventDefault();
 
     if (!email) {
-      setMessage("⚠️ Please enter your email address.");
+      setMessage("Please enter your email address.");
       return;
     }
 
-    
-   
-
-    
-    setTimeout(() => navigate("/"), 2500);
+    setMessage("If this email is registered, a reset link has been sent.");
+    setTimeout(() => navigate("/login"), 2500);
   };
 
   return (
@@ -64,13 +60,14 @@ function ForgotPassword() {
           <button
             type="submit"
             style={{
-              backgroundColor: "#007bff",
+              backgroundColor: "#004aad",
               color: "white",
               border: "none",
               padding: "0.7rem",
               width: "100%",
               borderRadius: "0.3rem",
               cursor: "pointer",
+              fontWeight: "500",
             }}
           >
             Send Reset Link
@@ -78,16 +75,16 @@ function ForgotPassword() {
         </form>
 
         {message && (
-          <p style={{ marginTop: "1rem", color: "#007bff" }}>{message}</p>
+          <p style={{ marginTop: "1rem", color: "#004aad" }}>{message}</p>
         )}
 
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/login")}
           style={{
             marginTop: "1rem",
             background: "transparent",
             border: "none",
-            color: "#007bff",
+            color: "#004aad",
             textDecoration: "underline",
             cursor: "pointer",
           }}

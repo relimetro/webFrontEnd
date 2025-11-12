@@ -1,13 +1,253 @@
+/* Global Layout */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  background-color: #f5f6fa;
+  color: #333;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
+
+/* Navbar */
+.navbar {
+  background-color: #004aad;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+}
+
+.nav-left .logo {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+.nav-link:hover {
+  opacity: 0.8;
+}
+
+.logout-btn {
+  background-color: #ff4757;
+  border: none;
+  padding: 8px 14px;
+  color: white;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #e84118;
+}
+
+/* Auth Pages */
+.auth-container {
+  max-width: 400px;
+  margin: 80px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.auth-container h2 {
+  margin-bottom: 20px;
+  color: #004aad;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #004aad;
+}
+
+.button {
+  background-color: #004aad;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: #003580;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+}
+
+/* Tables */
+.patients-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.patients-table th,
+.patients-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.patients-table th {
+  background-color: #004aad;
+  color: white;
+}
+
+.patients-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.patients-table td[colspan="2"],
+.patients-table td[colspan="3"],
+.patients-table td[colspan="4"] {
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  padding: 20px;
+}
+
+/* Risk Colors */
+.risk-high {
+  color: #ff4d4d;
+  font-weight: 600;
+}
+
+.risk-medium {
+  color: #ffcc00;
+  font-weight: 600;
+}
+
+.risk-low {
+  color: #00b300;
+  font-weight: 600;
+}
+
+/* Patient Profile View */
+.patient-profile {
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+}
+
+.patient-profile h2 {
+  color: #004aad;
+}
+
+/* News Section */
+.news-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.news-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+}
+
+.news-card h2 {
+  color: #004aad;
+  margin-bottom: 8px;
+}
+
+.news-card p {
+  margin: 4px 0;
+}
+
+.news-link {
+  color: #004aad;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.news-link:hover {
+  text-decoration: underline;
+}
+
+/* Admin Table */
+input[type="file"] {
+  margin: 15px 0;
+}
+
+/* Dashboard Chart */
+.recharts-wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.recharts-legend-wrapper {
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .auth-container {
+    width: 90%;
+  }
+
+  .patients-table th,
+  .patients-table td {
+    font-size: 14px;
+  }
+}
+
