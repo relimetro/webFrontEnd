@@ -36,7 +36,10 @@ function Navbar() {
             <Link to="/patients" className="nav-link">Patients</Link>
             <Link to="/reports" className="nav-link">Reports</Link>
             <Link to="/dashboard" className="nav-link">Dashboard</Link>
-            <Link to="/admin" className="nav-link">Admin</Link>
+            {user?.role === "admin" && (
+              <Link to="/admin" className="nav-link">Admin</Link>
+            )}
+
             <Link to="/news" className="nav-link">News</Link>
             <button onClick={handleLogout} className="logout-btn">Logout</button>
           </>

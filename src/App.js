@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -14,11 +13,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import "./index.css";
 
 function App() {
-  useEffect(() => {
-    // Clear session when app starts or server restarts
-    sessionStorage.clear();
-  }, []);
-
   return (
     <Router>
       <Routes>
@@ -64,7 +58,7 @@ function App() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute role="admin">
               <Admin />
             </ProtectedRoute>
           }
@@ -83,3 +77,4 @@ function App() {
 }
 
 export default App;
+

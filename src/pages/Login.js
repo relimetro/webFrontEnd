@@ -11,7 +11,10 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setError("");
+
     const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+
     const match = allUsers.find(
       (u) => u.email === email && u.password === password
     );
@@ -21,20 +24,59 @@ function Login() {
       return;
     }
 
+    // Save user to session
     sessionStorage.setItem("user", JSON.stringify(match));
-    navigate("/home");
+
+    // NEW: Save role so pages can check it
+    localStorage.setItem("role", match.role);
+    localStorage.setItem("userId", match.email); 
+    // (You can change this to match.name or match.id if needed)
+
+    // Optional: Redirect admins to Admin page
+    if (match.role === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/home");
+    }
   };
 
   return (
     <div className="auth-container">
-      <h2>Doctor Login</h2>
+      <h2>Login</h2>
+
       <form onSubmit={handleLogin} className="form">
-        <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required className="input" />
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className="input" />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required className="input" />
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="input"
+        />
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="input"
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          className="input"
+        />
+
         {error && <p className="error">{error}</p>}
+
         <button type="submit" className="button">Login</button>
       </form>
+
       <p><Link to="/forgot-password">Forgot Password?</Link></p>
       <p>Don’t have an account? <Link to="/register">Register</Link></p>
     </div>
@@ -42,3 +84,4 @@ function Login() {
 }
 
 export default Login;
+
