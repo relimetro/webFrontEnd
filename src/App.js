@@ -4,7 +4,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home";
-import Patients from "./pages/Patients";
+import UserPage from "./pages/UserPage";
+import TestPage from "./pages/TestPage";
 import Reports from "./pages/Reports";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
@@ -32,10 +33,18 @@ function App() {
           }
         />
         <Route
-          path="/patients"
+          path="/users/:uid"
           element={
             <ProtectedRoute>
-              <Patients />
+              <UserPage />
+            </ProtectedRoute>
+          }
+        />
+		<Route
+          path="/tests/:testId"
+          element={
+            <ProtectedRoute>
+              <TestPage />
             </ProtectedRoute>
           }
         />

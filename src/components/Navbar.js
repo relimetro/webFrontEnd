@@ -23,7 +23,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="nav-left">
-        <h2 className="logo">NeuroMind System</h2>
+        <h2 className="logo">Dementica</h2>
       </div>
       <div className="nav-right">
         {!user && location.pathname === "/" && (
@@ -33,9 +33,6 @@ function Navbar() {
         {user && (
           <>
             <Link to="/home" className="nav-link">Home</Link>
-            <Link to="/patients" className="nav-link">Patients</Link>
-            <Link to="/reports" className="nav-link">Reports</Link>
-            <Link to="/dashboard" className="nav-link">Dashboard</Link>
             {user?.role === "admin" && (
               <Link to="/admin" className="nav-link">Admin</Link>
             )}

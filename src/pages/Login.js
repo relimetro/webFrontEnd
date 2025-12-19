@@ -9,51 +9,50 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setError("");
+const handleLogin = async (e) => {
+  e.preventDefault();
+  setError("");
 
-    const allUsers = JSON.parse(localStorage.getItem("users")) || [];
+  try {
+    const res = await fetch("http://dementica.danigoes.online/v1/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Email: email,
+        Password: password,
+        UserType: "Doctor", 
+      }),
+    });
 
-    const match = allUsers.find(
-      (u) => u.email === email && u.password === password
-    );
-
-    if (!match) {
-      setError("Invalid credentials");
-      return;
+    if (!res.ok) {
+      throw new Error("Invalid credentials");
     }
 
-    // Save user to session
-    sessionStorage.setItem("user", JSON.stringify(match));
+    const data = await res.json();
 
-    // NEW: Save role so pages can check it
-    localStorage.setItem("role", match.role);
-    localStorage.setItem("userId", match.email); 
-    // (You can change this to match.name or match.id if needed)
+    // Save auth/session info
+    sessionStorage.setItem("user", JSON.stringify(data));
+    localStorage.setItem("role", data.UserType || "Doctor");
+    localStorage.setItem("userId", data.UserID || null);
+    localStorage.setItem("id_token", data.IdToken || null);
 
-    // Optional: Redirect admins to Admin page
-    if (match.role === "admin") {
+    // Redirect
+    if (data.UserType === "Admin") {
       navigate("/admin");
     } else {
       navigate("/home");
     }
-  };
-
+  } catch (err) {
+    setError(err.message || "Login failed");
+  }
+};
   return (
     <div className="auth-container">
       <h2>Login</h2>
 
       <form onSubmit={handleLogin} className="form">
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          className="input"
-        />
-
         <input
           type="email"
           placeholder="Email"

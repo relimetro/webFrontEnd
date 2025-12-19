@@ -7,7 +7,7 @@ function Welcome() {
     <>
       <Navbar />
       <div className="container">
-        <h1>Welcome to NeuroMind System</h1>
+        <h1>Welcome to Dementica</h1>
         <p>Early Dementia Risk Screening for Healthcare Professionals</p>
       </div>
     </>

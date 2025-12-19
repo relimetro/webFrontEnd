@@ -8,38 +8,42 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [role, setRole] = useState("");   // <-- NEW
   const [error, setError] = useState("");
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    setError("");
+const handleRegister = async (e) => {
+  e.preventDefault();
+  setError("");
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
+  if (password !== confirmPassword) {
+    setError("Passwords do not match");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://dementica.danigoes.online:80/v1/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Name: name,
+        Password: password,
+        RegisterWith: email,
+        RegType: "Email",
+        UserType: "Doctor",
+      }),
+    });
+
+    if (!res.ok) {
+      const errData = await res.json();
+      throw new Error(errData.message || "Registration failed");
     }
-
-    if (!role) {
-      setError("Please select a role (Admin or Doctor)");
-      return;
-    }
-
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-    if (existingUsers.find((u) => u.email === email)) {
-      setError("An account with this email already exists");
-      return;
-    }
-
-    // NEW: store role in user object
-    const newUser = { name, email, password, role };
-    existingUsers.push(newUser);
-    localStorage.setItem("users", JSON.stringify(existingUsers));
 
     navigate("/login");
-  };
-
+  } catch (err) {
+    setError(err.message);
+  }
+};
   return (
     <div className="auth-container">
       <h2>Register</h2>
@@ -80,18 +84,6 @@ function Register() {
           required
           className="input"
         />
-
-        {/* NEW: Role Selection */}
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="input"
-          required
-        >
-          <option value="">Select Role</option>
-          <option value="doctor">Doctor</option>
-          <option value="admin">Admin</option>
-        </select>
 
         {error && <p className="error">{error}</p>}
 
